@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { createRef } from "react";
 import { Text, View } from "react-native";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import DropdownAlert from "react-native-dropdownalert";
@@ -25,6 +25,11 @@ export default class InternetConnectionAlert extends React.Component<
   IState
 > {
   dropDownAlertRef: any;
+  
+  constructor(props) {
+    super(props);
+    this.dropDownAlertRef = createRef();
+  }
 
   componentDidMount() {
     this.listenIsInternetAvailable();
@@ -65,7 +70,7 @@ export default class InternetConnectionAlert extends React.Component<
   renderAlert = () => {
     return (
       <DropdownAlert
-        ref={(ref) => (this.dropDownAlertRef = ref)}
+        ref={this.dropDownAlertRef}
         tapToCloseEnabled={false}
         panResponderEnabled={false}
         closeInterval={0} // ? Cancel auto close
